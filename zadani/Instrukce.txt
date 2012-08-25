@@ -1,0 +1,83 @@
+pseudoinstrukce:
+.class - deklarace tøídy
+.super - specifikace nadtøídy
+.method - deklarace metody
+.limit stack - max. hloubka zásobníku
+.limit locals - max. hloubka lokálních promìnných
+.end method - konec metody
+
+instrukce:
+
+iload, dload - nahraje obsah promìnné na zásobník
+  parametr: index promìnné
+  pøíklad: iload 0 - uloží obsah promìnné na pozici 1 na vrchol zásobníku
+    dload 1 - uloží obsah promìnné, která zaèíná na pozici 0, na vrchol
+              zásobníku (promìnné typu double zabírají dvì pozice)
+
+ineg, dneg - hodnotu na vrcholu zásobníku nahradí hodnotou s opaèným znaménkem
+
+imul, dmul - násobení
+
+idiv - celoèíselné dìlení
+
+ddiv - reálné dìlení
+
+irem - zbytek po celoèíselném dìlení
+
+iadd, dadd - sèítání
+
+isub, dsub - odèítání
+
+istore, dstore - uloží hodnotu na vrcholu zásobníku do promìnné
+  parametr: index promìnné
+  pøíklad: istore 0 - hodnotu z vrcholu zásobníku uloží do promìnné na pozici 0
+
+i2d - nahradí hodnotu typu int na vrcholu zásobníku hodnotou typu double
+      (provede konverzi hodnoty int na double)
+
+ldc - uloží konstantu typu int na vrchol zásobníku
+  parametr: konstanta typu int
+  pøíklad: ldc 1234
+  pro hodnoty typu byte (tj. z intervalu <-128,127>) lze použít i bipush
+
+ldc2_w - uloží konstantu typu double na vrchol zásobníku
+  parametr: konstanta typu double
+  pøíklad: ldc2_w 3.14
+
+return - provede návrat z metody (musí být na konci každé metody!)
+
+podmínìné skoky:
+if_icmpge
+if_icmple
+if_icmpgt
+if_icmplt
+if_icmpne
+if_icmpeq - porovná dvì hodnoty int na vrcholu zásobníku a pøíp. provede
+  podmínìný skok
+
+dcmpg
+dcmpl - porovnání hodnot typu double; parametry jsou na zásobníku, výsledek
+  bude uložen na zásobník
+podmínìné skoky:
+ifge
+ifle
+ifgt
+iflt
+ifne
+ifeq - provede skok podle hodnoty na vrcholu zásobníku; napø. ifeq provede skok
+  pokud je hodnota na vrcholu zásobníku 0, ifge provede skok pokud je hodnota
+  vetsi nez 0
+
+goto - nepodmínìný skok
+
+iinc - pøiète konstantu k promìnné
+  parametry: index promìnné a hodnota konstanty
+  pøíklad: iinc 0 2 - k promìnné na pozici 0 pøiète hodnotu 2
+           iinc 0 -1 - sníží hodnotu promìnné na pozici 0 o 1
+
+výstup na obrazovku:
+getstatic java/lang/System/out Ljava/io/PrintStream; - uloží na zásobník odkaz
+  na výstupní stream
+invokevirtual java/io/PrintStream/println(I)V - zavolá metodu println; odkaz na
+  výstupní stream a hodnota, kterou chceme vytisknout, musejí být na zásobníku;
+  v závorce za println() je uveden typ parametru: I - int, D - double

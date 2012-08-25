@@ -1,0 +1,48 @@
+# Project: compiler
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = compiler_private.res
+OBJ  = main.o input.o lexan.o synan.o symboltable.o labels.o $(RES)
+LINKOBJ  = main.o input.o lexan.o synan.o symboltable.o labels.o $(RES)
+LIBS =  -L"D:/dev-cpp/lib"  -g3 
+INCS =  -I"D:/dev-cpp/include" 
+CXXINCS =  -I"D:/dev-cpp/lib/gcc/mingw32/3.4.2/include"  -I"D:/dev-cpp/include/c++/3.4.2/backward"  -I"D:/dev-cpp/include/c++/3.4.2/mingw32"  -I"D:/dev-cpp/include/c++/3.4.2"  -I"D:/dev-cpp/include" 
+BIN  = compiler.exe
+CXXFLAGS = $(CXXINCS)   -g3
+CFLAGS = $(INCS)   -g3
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before compiler.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "compiler.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+input.o: input.cpp
+	$(CPP) -c input.cpp -o input.o $(CXXFLAGS)
+
+lexan.o: lexan.cpp
+	$(CPP) -c lexan.cpp -o lexan.o $(CXXFLAGS)
+
+synan.o: synan.cpp
+	$(CPP) -c synan.cpp -o synan.o $(CXXFLAGS)
+
+symboltable.o: symboltable.cpp
+	$(CPP) -c symboltable.cpp -o symboltable.o $(CXXFLAGS)
+
+labels.o: labels.cpp
+	$(CPP) -c labels.cpp -o labels.o $(CXXFLAGS)
+
+compiler_private.res: compiler_private.rc 
+	$(WINDRES) -i compiler_private.rc --input-format=rc -o compiler_private.res -O coff 

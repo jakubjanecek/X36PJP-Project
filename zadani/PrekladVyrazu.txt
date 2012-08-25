@@ -1,0 +1,75 @@
+dedicne atributy:
+NEG: dtyp
+ZbytekVyrazu: levy
+ZbytekTermu: levy
+LDC: hodn
+LDC2_W: hodn
+Operace: levy, pravy
+InvokeVirtual: dtyp
+
+syntetizovane atributy:
+Vyraz: typ
+ZbytekVyrazu: typ
+Znamenko: znam
+Term: typ
+Faktor: typ
+ZbytekTermu: typ
+MultiplikativniOperator: oper
+AditivniOperator: oper
+Operace: typ
+
+24 Vyraz -> Znamenko Term <NEG> ZbytekVyrazu
+    NEG.dtyp = Term.typ
+    ZbytekVyrazu.levy = Term.typ
+    Vyraz.typ = ZbytekVyrazu.typ
+25 Znamenko -> +
+    Znamenko.znam = kladne
+26 Znamenko -> -
+    Znamenko.znam = zaporne
+27 Znamenko -> e
+    Znamenko.znam = kladne
+28 Term -> Faktor ZbytekTermu
+    ZbytekTermu.levy = Faktor.typ
+    Term.typ = ZbytekTermu.typ
+pravidlo 29 doplnime pozdeji
+30 Faktor -> celeCislo <LDC>
+    LDC.hodn = celeCislo.hodn
+    Faktor.typ = integer
+31 Faktor -> realneCislo <LDC2_W>
+    LDC2_W.hodn = realneCislo.hodn
+    Faktor.typ = real
+32 Faktor -> ( Vyraz )
+    Faktor.typ = Vyraz.typ
+33 ZbytekTermu0 -> MultiplikativniOperator Faktor <Operace> ZbytekTermu1
+    Operace.levy = ZbytekTermu0.levy
+    Operace.pravy = Faktor.typ
+    if (Operace.levy != Operace.pravy) chyba (nebo konverze i2d)    
+    Operace.oper = MultiplikativniOperator.oper
+    ZbytekTermu1.levy = Operace.typ
+    ZbytekTermu0.typ = ZbytekTermu1.typ
+34 ZbytekTermu -> e
+    ZbytekTermu.typ = ZbytekTermu.levy
+35 MultiplikativniOperator -> *
+    MultiplikativniOperator.oper = mul
+36 MultiplikativniOperator -> /
+    MultiplikativniOperator.oper = div
+37 MultiplikativniOperator -> div
+    MultiplikativniOperator.oper = idiv
+38 MultiplikativniOperator -> mod
+    MultiplikativniOperator.oper = imod
+39 ZbytekVyrazu0 -> AditivniOperator Term <Operace> ZbytekVyrazu1
+    Operace.levy = ZbytekVyrazu0.levy
+    Operace.pravy = Term.typ
+    Operace.oper = AditivniOperator.oper
+    if (Operace.levy != Operace.pravy) chyba (nebo konverze i2d)
+    ZbytekVyrazu1.levy = Operace.typ
+    ZbytekVyrazu0.typ = ZbytekVyrazu1.typ
+40 ZbytekVyrazu -> e
+    ZbytekVyrazu.typ = ZbytekVyrazu.levy
+41 AditivniOperator -> +
+    AditivniOperator.oper = add
+42 AditivniOperator -> -
+    AditivniOperator.oper = sub
+
+59 PrikazWriteln -> writeln <GetStatic> ( Vyraz ) <InvokeVirtual>
+    InvokeVirtual.dtyp = Vyraz.typ

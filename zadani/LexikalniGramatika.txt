@@ -1,0 +1,17 @@
+lexikalni-element = identifikator | cele-cislo | realne-cislo | 
+                    spec-symbol | klicove-slovo
+identifikator = pismeno { pismeno | cislice }
+pismeno = 'a' | 'b' | ... | 'z'
+cislice = '0' | '1' | ... | '9'
+klicove-slovo = 'program' | 'var' | 'integer' | 'real' | 'begin' |
+                'end' | 'div' | 'mod' | 'and' | 'or' | 'if' |
+                'then' | 'else' | 'while' | 'do' | 'for' | 'to' |
+                'downto' | 'writeln'
+cele-cislo = cislice { cislice }
+realne-cislo = cele-cislo '.' cele-cislo
+spec-symbol = '(' | ')' | ',' | ':' | ';' | ':=' | '+' | '-' |
+              '*' | '/' | '=' | '<>' | '<' | '>' | '<=' | '>=' | '.'
+
+Nerozlisuji se mala a velka pismena.
+Komentar zacina znakem '{' a konci znakem '}'.
+Oddelovacem lexikalnich elementu je spec-symbol, mezera, konec radku a komentar.

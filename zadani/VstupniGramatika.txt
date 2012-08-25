@@ -1,0 +1,61 @@
+1 Program -> program identifikator ; Blok .
+2 Blok -> UsekDeklaraciPromennych SlozenyPrikaz
+3 UsekDeklaraciPromennych -> var DeklaracePromennych ; ZbytekDeklaraciPromennych
+4 UsekDeklaraciPromennych -> e
+5 DeklaracePromennych -> SeznamIdentifikatoru : OznaceniTypu
+6 SeznamIdentifikatoru -> identifikator ZbytekSeznamuIdentifikatoru
+7 ZbytekSeznamuIdentifikatoru -> , SeznamIdentifikatoru
+8 ZbytekSeznamuIdentifikatoru -> e
+9 OznaceniTypu -> integer
+10 OznaceniTypu -> real
+11 ZbytekDeklaraciPromennych -> DeklaracePromennych ; ZbytekDeklaraciPromennych
+12 ZbytekDeklaraciPromennych -> e
+13 SlozenyPrikaz -> begin PosloupnostPrikazu end
+14 PosloupnostPrikazu -> Prikaz ZbytekPosloupnostiPrikazu
+15 Prikaz -> PrirazovaciPrikaz
+16 Prikaz -> SlozenyPrikaz
+17 Prikaz -> PrikazIf
+18 Prikaz -> PrikazWhile
+19 Prikaz -> PrikazFor
+20 Prikaz -> PrikazWriteln
+21 Prikaz -> PrazdnyPrikaz
+22 PrazdnyPrikaz -> e
+23 PrirazovaciPrikaz -> identifikator := Vyraz
+24 Vyraz -> Znamenko Term ZbytekVyrazu
+25 Znamenko -> +
+26 Znamenko -> -
+27 Znamenko -> e
+28 Term -> Faktor ZbytekTermu
+29 Faktor -> identifikator
+30 Faktor -> celeCislo
+31 Faktor -> realneCislo
+32 Faktor -> ( Vyraz )
+33 ZbytekTermu -> MultiplikativniOperator Faktor ZbytekTermu
+34 ZbytekTermu -> e
+35 MultiplikativniOperator -> *
+36 MultiplikativniOperator -> /
+37 MultiplikativniOperator -> div
+38 MultiplikativniOperator -> mod
+39 ZbytekVyrazu -> AditivniOperator Term ZbytekVyrazu
+40 ZbytekVyrazu -> e
+41 AditivniOperator -> +
+42 AditivniOperator -> -
+43 ZbytekPosloupnostiPrikazu -> ; Prikaz ZbytekPosloupnostiPrikazu
+44 ZbytekPosloupnostiPrikazu -> e
+45 PrikazIf -> if Podminka then Prikaz CastElse
+46 Podminka -> Vyraz RelacniOperator Vyraz
+47 RelacniOperator -> =
+48 RelacniOperator -> <>
+49 RelacniOperator -> <
+50 RelacniOperator -> >
+51 RelacniOperator -> <=
+52 RelacniOperator -> >=
+53 CastElse -> else Prikaz
+54 CastElse -> e
+55 PrikazWhile -> while Podminka do Prikaz
+56 PrikazFor -> for identifikator := Vyraz CastFor Vyraz do Prikaz
+57 CastFor -> to
+58 CastFor -> downto
+59 PrikazWriteln -> writeln ( Vyraz )
+
+else patri vzdy k nejblizsimu if
